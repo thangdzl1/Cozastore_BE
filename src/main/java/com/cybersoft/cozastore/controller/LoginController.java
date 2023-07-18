@@ -26,7 +26,9 @@ public class LoginController {
     @Autowired
     private JwtHelper jwtHelper;
 
-    UserServiceImp userServiceImp = new UserService();
+    @Autowired
+    private UserServiceImp userServiceImp;
+
 
     /*
     {
@@ -50,7 +52,7 @@ public class LoginController {
         baseResponse.setData(jwt);
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
-    @RequestMapping(value = "/sigup", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<?> sigup( @Valid SignupRequest request ) {
         boolean isSuccess = userServiceImp.addUser(request);
 

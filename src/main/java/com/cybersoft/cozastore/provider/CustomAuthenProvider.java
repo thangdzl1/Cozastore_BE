@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class CustomAuthenProvider implements AuthenticationProvider {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     @Lazy

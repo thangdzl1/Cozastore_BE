@@ -65,7 +65,7 @@ public class DemoUploadFileController {
             String fileName = file.getOriginalFilename();
             Files.copy(file.getInputStream(), rootPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
-            System.out.println("Loi" + e.getLocalizedMessage());
+            throw new CustomFileNotFoundException(500,"Khong tim thay file");
         }
 
         return new ResponseEntity<>("", HttpStatus.OK);

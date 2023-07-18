@@ -10,7 +10,9 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="cozastore" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -122,5 +124,7 @@
     <orderEntry type="library" name="Maven: net.minidev:accessors-smart:2.4.9" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:9.3" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-cache:2.7.11" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.27" level="project" />
   </component>
 </module>
