@@ -12,14 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class LoginController {
     @Autowired
     private CustomAuthenProvider authenticationManager;
@@ -38,7 +36,7 @@ public class LoginController {
     }
     */
 
-    @RequestMapping(value = "/sigin", method = RequestMethod.POST)
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public ResponseEntity<?> sigin(
             @RequestParam String email,
             @RequestParam String password
