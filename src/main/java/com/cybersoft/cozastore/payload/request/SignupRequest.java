@@ -10,14 +10,14 @@ import javax.validation.constraints.NotNull;
 public class SignupRequest {
     private String username;
 
-    @NotEmpty(message = "Email not empty")
-    @NotNull(message = "Email not null")
     @Length(min = 8)
+    @NotNull(message = "password must not be null")
+    @NotEmpty(message = "password must not be empty")
     private String password;
 
-    @NotNull(message = "Email not null")
-    @NotEmpty(message = "Email not empty")
-    @Email(message = "Email invalid format")
+    @NotNull(message = "email must not be null")
+    @NotEmpty(message = "email must not be empty")
+    @Email(message = "must have email form")
     private String email;
 
     public String getUsername() {

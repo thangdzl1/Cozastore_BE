@@ -1,26 +1,29 @@
 package com.cybersoft.cozastore.controller;
 
-import com.cybersoft.cozastore.filter.JwtFilter;
+import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.request.SignupRequest;
 import com.cybersoft.cozastore.payload.response.BaseResponse;
 import com.cybersoft.cozastore.provider.CustomAuthenProvider;
 import com.cybersoft.cozastore.service.Imp.UserServiceImp;
-import com.cybersoft.cozastore.service.UserService;
 import com.cybersoft.cozastore.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
 public class LoginController {
     @Autowired
-    private CustomAuthenProvider authenticationManager;
+    private AuthenticationManager authenticationManager;
     @Autowired
     private JwtHelper jwtHelper;
 
@@ -37,7 +40,7 @@ public class LoginController {
     */
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public ResponseEntity<?> sigin(
+    public ResponseEntity<?> signin(
             @RequestParam String email,
             @RequestParam String password
     ) {
@@ -50,8 +53,16 @@ public class LoginController {
         baseResponse.setData(jwt);
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ResponseEntity<?> sigup( @Valid SignupRequest request ) {
+    public ResponseEntity<?> signup(@Valid SignupRequest request, BindingResult result) {
+
+        List<FieldError> list = result.getFieldErrors();
+
+        for (FieldError data: list) {
+            throw new CustomException(data.getDefaultMessage());
+        }
+
         boolean isSuccess = userServiceImp.addUser(request);
 
         BaseResponse baseResponse = new BaseResponse();

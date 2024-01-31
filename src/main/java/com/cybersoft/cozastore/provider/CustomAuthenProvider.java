@@ -30,8 +30,9 @@ public class CustomAuthenProvider implements AuthenticationProvider {
         String username = authentication.getName();
         //Lấy password người dùng truyền vào
         String password = authentication.getCredentials().toString();
-        UserEntity user = userRepository.findByEmail(username);
-        if (user!=null && passwordEncoder.matches(password,user.getPassword())){
+        UserEntity user = userRepository.findByUsername(username);
+        boolean isTrue = passwordEncoder.matches(password,user.getPassword());
+        if (user!=null && isTrue){
             //Đăng nhập thành công
             return new UsernamePasswordAuthenticationToken(username,user.getPassword(),new ArrayList<>());
         }
@@ -41,7 +42,7 @@ public class CustomAuthenProvider implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> authentication) {
 
-        //khai báo loại chứng thực sử dụng để so sánh
+        //khai báo loại chứng thực cho AuthenProvider sử dụng để so sánh
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
 
     }
