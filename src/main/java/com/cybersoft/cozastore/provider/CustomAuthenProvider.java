@@ -31,8 +31,7 @@ public class CustomAuthenProvider implements AuthenticationProvider {
         //Lấy password người dùng truyền vào
         String password = authentication.getCredentials().toString();
         UserEntity user = userRepository.findByUsername(username);
-        boolean isTrue = passwordEncoder.matches(password,user.getPassword());
-        if (user!=null && isTrue){
+        if (user != null && passwordEncoder.matches(password,user.getPassword())){
             //Đăng nhập thành công
             return new UsernamePasswordAuthenticationToken(username,user.getPassword(),new ArrayList<>());
         }

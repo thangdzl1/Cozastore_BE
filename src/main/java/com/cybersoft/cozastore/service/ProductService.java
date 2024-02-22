@@ -30,4 +30,19 @@ public class ProductService implements ProductServiceImp {
         }
         return productResponseList;
     }
+
+    @Override
+    public List<ProductResponse> getProductByUser(int id) {
+        List<ProductEntity> list = productRepository.findByUser(id);
+        List<ProductResponse> productResponseList = new ArrayList<>();
+        for (ProductEntity data: list) {
+            ProductResponse productResponse = new ProductResponse();
+            productResponse.setId(data.getId());
+            productResponse.setImage(data.getImage());
+            productResponse.setPrice(data.getPrice());
+            productResponse.setName(data.getName());
+            productResponseList.add(productResponse);
+        }
+        return productResponseList;
+    }
 }

@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.repository;
 
-import com.cybersoft.cozastore.entity.ProductEntity;
+import com.cybersoft.cozastore.entity.OrderDetailEntity;
+import com.cybersoft.cozastore.entity.ids.OrderDetailIds;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,12 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository <ProductEntity, Integer> {
-    List<ProductEntity>findByCategoryId(int id);
-
-    @Query("select p from product p " +
-            "join p.orderDetails od " +
+public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, OrderDetailIds> {
+    @Query("select od from order_detail od " +
             "join od.order o " +
             "join o.user u where u.id = ?1")
-    List<ProductEntity>findByUser(int id);
+    List<OrderDetailEntity> findByUser(int id);
 }
