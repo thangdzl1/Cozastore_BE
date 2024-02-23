@@ -54,7 +54,7 @@ public class ProductController {
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 
-    @PostMapping("/order/get-product")
+    @PostMapping("/user")
     public ResponseEntity<?> getProductByUser(@RequestParam int userId){
         List<ProductResponse> listProduct = productServiceImp.getProductByUser(userId);
 
@@ -65,8 +65,8 @@ public class ProductController {
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 
-    @PostMapping("/order")
-    public ResponseEntity<?> get(@RequestParam int userId){
+    @PostMapping("/order-detail")
+    public ResponseEntity<?> getOrderDetailByUser(@RequestParam int userId){
 
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(200);
@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     @PostMapping("/order/update")
-    public ResponseEntity<?> signup(@Valid OrderDetailRequest request, BindingResult result) {
+    public ResponseEntity<?> updateOrderDetail(@Valid OrderDetailRequest request, BindingResult result) {
 
         List<FieldError> list = result.getFieldErrors();
 
