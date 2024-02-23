@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.service;
 
 import com.cybersoft.cozastore.entity.ProductEntity;
+import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.response.ProductResponse;
 import com.cybersoft.cozastore.repository.ProductRepository;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
@@ -18,31 +19,42 @@ public class ProductService implements ProductServiceImp {
 
     @Override
     public List<ProductResponse> getProductByCategory(int id) {
-        List<ProductEntity> list = productRepository.findByCategoryId(id);
         List<ProductResponse> productResponseList = new ArrayList<>();
-        for (ProductEntity data: list) {
-            ProductResponse productResponse = new ProductResponse();
-            productResponse.setId(data.getId());
-            productResponse.setImage(data.getImage());
-            productResponse.setPrice(data.getPrice());
-            productResponse.setName(data.getName());
-            productResponseList.add(productResponse);
+        try {
+            List<ProductEntity> list = productRepository.findByCategoryId(id);
+            for (ProductEntity data: list) {
+                ProductResponse productResponse = new ProductResponse();
+                productResponse.setId(data.getId());
+                productResponse.setImage(data.getImage());
+                productResponse.setPrice(data.getPrice());
+                productResponse.setName(data.getName());
+                productResponseList.add(productResponse);
+            }
+        }catch (Exception e){
+            throw new CustomException("Error getProductByCategory in ProductService" + e.getMessage());
         }
+
         return productResponseList;
     }
 
     @Override
     public List<ProductResponse> getProductByUser(int id) {
-        List<ProductEntity> list = productRepository.findByUser(id);
         List<ProductResponse> productResponseList = new ArrayList<>();
-        for (ProductEntity data: list) {
-            ProductResponse productResponse = new ProductResponse();
-            productResponse.setId(data.getId());
-            productResponse.setImage(data.getImage());
-            productResponse.setPrice(data.getPrice());
-            productResponse.setName(data.getName());
-            productResponseList.add(productResponse);
+
+        try {
+            List<ProductEntity> list = productRepository.findByUser(id);
+            for (ProductEntity data: list) {
+                ProductResponse productResponse = new ProductResponse();
+                productResponse.setId(data.getId());
+                productResponse.setImage(data.getImage());
+                productResponse.setPrice(data.getPrice());
+                productResponse.setName(data.getName());
+                productResponseList.add(productResponse);
+            }
+        }catch (Exception e ){
+            throw new CustomException("Error getProductByUser in ProductService" + e.getMessage());
         }
+
         return productResponseList;
     }
 }
