@@ -1,5 +1,8 @@
 package com.cybersoft.cozastore.controller;
 
+import com.cybersoft.cozastore.exception.CustomException;
+import com.cybersoft.cozastore.payload.request.OrderDetailRequest;
+import com.cybersoft.cozastore.payload.request.SignupRequest;
 import com.cybersoft.cozastore.payload.response.BaseResponse;
 import com.cybersoft.cozastore.payload.response.OrderDetailResponse;
 import com.cybersoft.cozastore.payload.response.ProductResponse;
@@ -12,8 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,9 +54,9 @@ public class ProductController {
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 
-    @GetMapping("/order/get-product/{id}")
-    public ResponseEntity<?> getProductByUser(@PathVariable int id){
-        List<ProductResponse> listProduct = productServiceImp.getProductByUser(id);
+    @PostMapping("/order/get-product")
+    public ResponseEntity<?> getProductByUser(@RequestParam int userId){
+        List<ProductResponse> listProduct = productServiceImp.getProductByUser(userId);
 
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(200);
@@ -59,13 +65,31 @@ public class ProductController {
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 
-    @GetMapping("/order/{id}")
-    public ResponseEntity<?> get(@PathVariable int id){
+    @PostMapping("/order")
+    public ResponseEntity<?> get(@RequestParam int userId){
 
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(200);
-        baseResponse.setData(orderDetailServiceImp.findByUser(id));
+        baseResponse.setData(orderDetailServiceImp.findByUser(userId));
 
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
+    }
+
+    @PostMapping("/order/update")
+    public ResponseEntity<?> signup(@Valid OrderDetailRequest request, BindingResult result) {
+
+        List<FieldError> list = result.getFieldErrors();
+
+        for (FieldError data: list) {
+            throw new CustomException(data.getDefaultMessage());
+        }
+
+        boolean isSuccess = orderDetailServiceImp.saveOrderDetail(request);
+
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setStatusCode(200);
+        baseResponse.setData(isSuccess);
+
+        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
 }

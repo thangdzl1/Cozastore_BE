@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.service;
 
 import com.cybersoft.cozastore.entity.OrderDetailEntity;
+import com.cybersoft.cozastore.entity.ids.OrderDetailIds;
 import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.request.OrderDetailRequest;
 import com.cybersoft.cozastore.payload.response.OrderDetailResponse;
@@ -43,14 +44,16 @@ public class OrderDetailService implements OrderDetailServiceImp {
         boolean isSuccess = false;
         try {
             OrderDetailEntity entity = new OrderDetailEntity();
-            entity.getIds().setOrderId(request.getOrderDetailId());
-            entity.getIds().setProductId(request.getProductId());
+            OrderDetailIds ids = new OrderDetailIds();
+            ids.setOrderId(request.getOrderId());
+            ids.setProductId(request.getProductId());
+            entity.setIds(ids);
             entity.setPrice(request.getPrice());
             entity.setQuantity(request.getQuantity());
             orderDetailRepository.save(entity);
             isSuccess = true;
         }catch (Exception e){
-            throw new CustomException("Error saveOrderDetail" + e.getMessage());
+            throw new CustomException("Error saveOrderDetail in OrderDetailService " + e.getMessage());
         }
         return isSuccess;
     }
