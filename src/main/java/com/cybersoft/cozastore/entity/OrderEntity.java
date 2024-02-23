@@ -17,6 +17,12 @@ public class OrderEntity {
     @Column(name = "price")
     private int price;
 
+    @Column(name = "full_address")
+    private String full_address;
+
+    @Column(name = "postal_code")
+    private String postal_code;
+
     @OneToMany(mappedBy = "order")
     private Set<OrderDetailEntity> orderDetails;
 
@@ -27,6 +33,22 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    public String getFull_address() {
+        return full_address;
+    }
+
+    public void setFull_address(String full_address) {
+        this.full_address = full_address;
+    }
+
+    public String getPostal_code() {
+        return postal_code;
+    }
+
+    public void setPostal_code(String postal_code) {
+        this.postal_code = postal_code;
+    }
 
     public int getPrice() {
         return price;
