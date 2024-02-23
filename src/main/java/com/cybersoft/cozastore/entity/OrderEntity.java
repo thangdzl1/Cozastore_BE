@@ -14,6 +14,9 @@ public class OrderEntity {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "price")
+    private int price;
+
     @OneToMany(mappedBy = "order")
     private Set<OrderDetailEntity> orderDetails;
 
@@ -24,6 +27,14 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public CountryEntity getCountry() {
         return country;
