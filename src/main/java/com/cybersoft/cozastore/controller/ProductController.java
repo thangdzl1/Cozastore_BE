@@ -2,11 +2,14 @@ package com.cybersoft.cozastore.controller;
 
 import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.request.OrderDetailRequest;
+import com.cybersoft.cozastore.payload.request.OrderRequest;
 import com.cybersoft.cozastore.payload.request.SignupRequest;
 import com.cybersoft.cozastore.payload.response.BaseResponse;
 import com.cybersoft.cozastore.payload.response.OrderDetailResponse;
 import com.cybersoft.cozastore.payload.response.ProductResponse;
+import com.cybersoft.cozastore.repository.OrderRepository;
 import com.cybersoft.cozastore.service.Imp.OrderDetailServiceImp;
+import com.cybersoft.cozastore.service.Imp.OrderServiceImp;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
 import com.cybersoft.cozastore.service.OrderDetailService;
 import com.google.gson.Gson;
@@ -33,6 +36,9 @@ public class ProductController {
 
     @Autowired
     private OrderDetailServiceImp orderDetailServiceImp;
+
+    @Autowired
+    private OrderServiceImp orderServiceImp;
 
     private Logger logger = LoggerFactory.getLogger(ProductController.class);
     private Gson gson = new Gson();
@@ -75,7 +81,7 @@ public class ProductController {
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 
-    @PostMapping("/order/update")
+    @PostMapping("/order-detail/update")
     public ResponseEntity<?> updateOrderDetail(@Valid OrderDetailRequest request, BindingResult result) {
 
         List<FieldError> list = result.getFieldErrors();
@@ -85,6 +91,24 @@ public class ProductController {
         }
 
         boolean isSuccess = orderDetailServiceImp.saveOrderDetail(request);
+
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setStatusCode(200);
+        baseResponse.setData(isSuccess);
+
+        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/order/update")
+    public ResponseEntity<?> updateOrder(@Valid OrderRequest request, BindingResult result) {
+
+        List<FieldError> list = result.getFieldErrors();
+
+        for (FieldError data: list) {
+            throw new CustomException(data.getDefaultMessage());
+        }
+
+        boolean isSuccess = orderServiceImp.saveOrder(request);
 
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(200);
