@@ -26,12 +26,12 @@ public class OrderRequest {
     @NotEmpty(message = "date id must not be empty")
     private Date date;
 
-    @NotNull(message = "product id must not be null")
-    @NotEmpty(message = "product id must not be empty")
+    @NotNull(message = "id must not be null")
+    @NotEmpty(message = "id must not be empty")
     private int id;
 
-    @NotNull(message = "product id must not be null")
-    @NotEmpty(message = "product id must not be empty")
+    @NotNull(message = "userId must not be null")
+    @NotEmpty(message = "userId must not be empty")
     private int userId;
 
     public int getUserId() {

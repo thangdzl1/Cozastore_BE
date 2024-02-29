@@ -1,7 +1,9 @@
 package com.cybersoft.cozastore.service;
 
 import com.cybersoft.cozastore.entity.ProductEntity;
+import com.cybersoft.cozastore.entity.UserEntity;
 import com.cybersoft.cozastore.exception.CustomException;
+import com.cybersoft.cozastore.payload.request.SignupRequest;
 import com.cybersoft.cozastore.payload.response.ProductResponse;
 import com.cybersoft.cozastore.repository.ProductRepository;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
@@ -56,5 +58,22 @@ public class ProductService implements ProductServiceImp {
         }
 
         return productResponseList;
+    }
+
+    @Override
+    public ProductResponse getProductById(int id) {
+        ProductResponse productResponse = new ProductResponse();
+
+        try {
+            ProductEntity data = productRepository.findById(id);
+                productResponse.setId(data.getId());
+                productResponse.setImage(data.getImage());
+                productResponse.setPrice(data.getPrice());
+                productResponse.setName(data.getName());
+
+        }catch (Exception e ){
+            throw new CustomException("Error getProductById in ProductService" + e.getMessage());
+        }
+        return productResponse;
     }
 }

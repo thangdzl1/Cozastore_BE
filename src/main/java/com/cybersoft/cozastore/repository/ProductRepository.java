@@ -16,4 +16,7 @@ public interface ProductRepository extends JpaRepository <ProductEntity, Integer
             "join od.order o " +
             "join o.user u where u.id = ?1")
     List<ProductEntity>findByUser(int id);
+
+    ProductEntity findById(int id);
+    ProductEntity findByColorIdAndSizeIdAndName(int colorId, int sizeId, String name);
 }

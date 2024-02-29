@@ -3,6 +3,7 @@ package com.cybersoft.cozastore.controller;
 import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.request.OrderDetailRequest;
 import com.cybersoft.cozastore.payload.request.OrderRequest;
+import com.cybersoft.cozastore.payload.request.ProductPropertiesRequest;
 import com.cybersoft.cozastore.payload.request.SignupRequest;
 import com.cybersoft.cozastore.payload.response.BaseResponse;
 import com.cybersoft.cozastore.payload.response.OrderDetailResponse;
@@ -115,5 +116,22 @@ public class ProductController {
         baseResponse.setData(isSuccess);
 
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("order-detail/add")
+    public ResponseEntity<?> addProductToOrderDetail(@Valid ProductPropertiesRequest request,  BindingResult result){
+        List<FieldError> list = result.getFieldErrors();
+
+        for (FieldError data: list) {
+            throw new CustomException(data.getDefaultMessage());
+        }
+
+        boolean isSuccess = orderDetailServiceImp.addOrderDetail(request);
+
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setStatusCode(200);
+        baseResponse.setData(isSuccess);
+
+        return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 }

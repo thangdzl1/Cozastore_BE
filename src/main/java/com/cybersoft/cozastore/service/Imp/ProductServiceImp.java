@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProductServiceImp {
     List<ProductResponse> getProductByCategory(int id);
     List<ProductResponse> getProductByUser(int id);
+    ProductResponse getProductById(int id);
 }
