@@ -11,10 +11,10 @@ public class OrderDetailEntity {
     OrderDetailIds ids;
 
     @Column(name = "price")
-    private double price;
+    private double price = 0;
 
     @Column(name = "quantity")
-    private int quantity;
+    private int quantity = 0;
 
     @ManyToOne
     @JoinColumn(name = "product_id", insertable = false,updatable = false)

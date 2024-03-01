@@ -15,7 +15,7 @@ public class OrderEntity {
     private Date date;
 
     @Column(name = "price")
-    private int price;
+    private int price = 0;
 
     @Column(name = "full_address")
     private String full_address;

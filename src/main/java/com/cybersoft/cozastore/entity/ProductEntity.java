@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Set;
 
 @Entity(name = "product")
@@ -23,6 +24,7 @@ public class ProductEntity {
     private String description;
 
     @Column(name = "quantity")
+    @Min(value = 0, message = "Quantity must be greater than 0")
     private int quantity;
 
     @Column(name = "image_detail")
