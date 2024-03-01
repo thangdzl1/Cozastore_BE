@@ -18,5 +18,15 @@ public interface ProductRepository extends JpaRepository <ProductEntity, Integer
     List<ProductEntity>findByUser(int id);
 
     ProductEntity findById(int id);
+
     ProductEntity findByColorIdAndSizeIdAndName(int colorId, int sizeId, String name);
+
+    @Query("select p " +
+            "from product p " +
+            "where p.id " +
+            "in (" +
+            "select min (p.id) " +
+            "from product p " +
+            "group by p.name)")
+    List<ProductEntity> getAllProductForEachName();
 }

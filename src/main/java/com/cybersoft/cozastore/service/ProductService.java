@@ -1,9 +1,7 @@
 package com.cybersoft.cozastore.service;
 
 import com.cybersoft.cozastore.entity.ProductEntity;
-import com.cybersoft.cozastore.entity.UserEntity;
 import com.cybersoft.cozastore.exception.CustomException;
-import com.cybersoft.cozastore.payload.request.SignupRequest;
 import com.cybersoft.cozastore.payload.response.ProductResponse;
 import com.cybersoft.cozastore.repository.ProductRepository;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
@@ -75,5 +73,25 @@ public class ProductService implements ProductServiceImp {
             throw new CustomException("Error getProductById in ProductService" + e.getMessage());
         }
         return productResponse;
+    }
+
+    @Override
+    public List<ProductResponse> findAllDistinctProduct(){
+
+        List<ProductResponse> productResponseList = new ArrayList<>();
+        try {
+            List<ProductEntity> list = productRepository.getAllProductForEachName();
+            for (ProductEntity data: list) {
+                ProductResponse productResponse = new ProductResponse();
+                productResponse.setId(data.getId());
+                productResponse.setImage(data.getImage());
+                productResponse.setPrice(data.getPrice());
+                productResponse.setName(data.getName());
+                productResponseList.add(productResponse);
+            }
+            return productResponseList;
+        }catch (Exception e){
+            throw new CustomException("Error findAll in ProductService " + e.getMessage());
+        }
     }
 }

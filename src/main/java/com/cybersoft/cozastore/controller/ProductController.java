@@ -1,5 +1,6 @@
 package com.cybersoft.cozastore.controller;
 
+import com.cybersoft.cozastore.entity.ProductEntity;
 import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.request.OrderDetailRequest;
 import com.cybersoft.cozastore.payload.request.OrderRequest;
@@ -46,7 +47,13 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<?> getAllProduct(){
-        return new ResponseEntity<>("", HttpStatus.OK);
+        List<ProductResponse> listProduct = productServiceImp.findAllDistinctProduct();
+
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setStatusCode(200);
+        baseResponse.setData(listProduct);
+
+        return new ResponseEntity<>(listProduct, HttpStatus.OK);
     }
 
     @GetMapping("/category/{id}")
