@@ -21,13 +21,13 @@ import java.util.List;
 @Service
 public class OrderDetailService implements OrderDetailServiceImp {
     @Autowired
-    OrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository orderDetailRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Override
     public List<OrderDetailResponse> findByUser(int id) {

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ArchiveRepository extends JpaRepository<ArchiveEntity,Integer> {
-    List<ArchiveEntity> findAllArchive();
+    List<ArchiveEntity> findAll();
 }

@@ -21,13 +21,13 @@ import java.util.List;
 @RequestMapping("/blog")
 public class BlogController {
     @Autowired
-    ArchiveServiceImp archiveServiceImp;
+    private ArchiveServiceImp archiveServiceImp;
 
     @Autowired
-    TagServiceImp tagServiceImp;
+    private TagServiceImp tagServiceImp;
 
     @Autowired
-    BlogServiceImp blogServiceImp;
+    private BlogServiceImp blogServiceImp;
 
     @GetMapping("")
     ResponseEntity<?> findAllBlog(){

@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class ArchiveService implements ArchiveServiceImp {
     @Autowired
-    ArchiveRepository archiveRepository;
+    private ArchiveRepository archiveRepository;
 
     @Override
     public List<ArchiveEntity> findAllArchive(){

@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class TagService implements TagServiceImp {
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
 
     @Override
     public List<TagEntity> findAll(){
