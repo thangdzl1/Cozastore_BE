@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TagServiceImp {
     List<TagEntity> findAll();
+    List<TagEntity> findAllTagByBlogId(int id);
 }
