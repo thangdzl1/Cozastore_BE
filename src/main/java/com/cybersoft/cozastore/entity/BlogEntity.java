@@ -35,6 +35,18 @@ public class BlogEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @ManyToOne
+    @JoinColumn(name = "archive_id")
+    private ArchiveEntity archive;
+
+    public ArchiveEntity getArchive() {
+        return archive;
+    }
+
+    public void setArchive(ArchiveEntity archiveEntity) {
+        this.archive = archiveEntity;
+    }
+
     public UserEntity getUser() {
         return user;
     }
