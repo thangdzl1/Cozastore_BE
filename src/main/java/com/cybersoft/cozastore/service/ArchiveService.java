@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.service;
 
 import com.cybersoft.cozastore.entity.ArchiveEntity;
+import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.repository.ArchiveRepository;
 import com.cybersoft.cozastore.service.Imp.ArchiveServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,12 @@ public class ArchiveService implements ArchiveServiceImp {
 
     @Override
     public List<ArchiveEntity> findAllArchive(){
-        return archiveRepository.findAll();
+        try {
+            return archiveRepository.findAll();
+        }catch (Exception e){
+            throw new CustomException("Error findAllArchive in ArchiveService " + e.getMessage());
+        }
+
     }
 
 }
