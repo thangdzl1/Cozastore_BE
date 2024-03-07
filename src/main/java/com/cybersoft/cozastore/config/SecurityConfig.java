@@ -55,7 +55,7 @@ public class SecurityConfig {
                                 ,"/product/**"
                                 ,"/category"
                                 ,"/blog"
-                                ,"comment").permitAll()//các link này không cần chứng thực
+                                ,"/comment").permitAll()//các link này không cần chứng thực
                     .antMatchers("/product/user").authenticated()
                     .anyRequest().authenticated()//tất cả các link còn lại phải được chứng thực
                 .and()
