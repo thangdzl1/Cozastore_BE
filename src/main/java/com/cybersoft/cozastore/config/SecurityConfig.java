@@ -49,7 +49,14 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()//qui định lại các rule liên quan đến chứng thực cho link được gọi
-                    .antMatchers("/signin","/signup","/demo/**").permitAll()
+                    .antMatchers("/signin"
+                                ,"/signup"
+                                ,"/demo/**"
+                                ,"/product/**"
+                                ,"/category"
+                                ,"/blog"
+                                ,"comment").permitAll()//các link này không cần chứng thực
+                    .antMatchers("/product/user").authenticated()
                     .anyRequest().authenticated()//tất cả các link còn lại phải được chứng thực
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
