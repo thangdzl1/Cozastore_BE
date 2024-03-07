@@ -31,7 +31,7 @@ public class OrderController {
             throw new CustomException(data.getDefaultMessage());
         }
 
-        boolean isSuccess = orderServiceImp.saveOrder(request);
+        boolean isSuccess = orderServiceImp.updateOrder(request);
 
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(200);

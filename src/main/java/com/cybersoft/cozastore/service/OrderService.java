@@ -44,17 +44,32 @@ public class OrderService implements OrderServiceImp {
     }
 
     @Override
-    public boolean saveOrder(OrderRequest orderRequest) {
+    public boolean updateOrder(OrderRequest orderRequest) {
         boolean isSuccess = false;
         try {
             OrderEntity entity = orderRepository.findByUserId(orderRequest.getUserId());
 
-            entity.setPrice(orderRequest.getPrice());
-            entity.setDate(orderRequest.getDate());
-            entity.setFull_address(orderRequest.getFullAdress());
-            entity.setPostal_code(orderRequest.getPostalCode());
-            entity.setCountry(countryRepository.findById(orderRequest.getCountryId()));
-            entity.setUser(userRepository.findById(orderRequest.getUserId()));
+            // Check if the OrderEntity exists
+            if (entity!=null){
+                entity.setPrice(orderRequest.getPrice());
+                entity.setDate(orderRequest.getDate());
+                entity.setFull_address(orderRequest.getFullAdress());
+                entity.setPostal_code(orderRequest.getPostalCode());
+                entity.setCountry(countryRepository.findById(orderRequest.getCountryId()));
+                entity.setUser(userRepository.findById(orderRequest.getUserId()));
+
+            }else {
+                // If the OrderEntity does not exist, create a new one
+                entity = new OrderEntity();
+                entity.setPrice(orderRequest.getPrice());
+                entity.setDate(orderRequest.getDate());
+                entity.setFull_address(orderRequest.getFullAdress());
+                entity.setPostal_code(orderRequest.getPostalCode());
+                entity.setCountry(countryRepository.findById(orderRequest.getCountryId()));
+                entity.setUser(userRepository.findById(orderRequest.getUserId()));
+
+            }
+
 
             orderRepository.save(entity);
             isSuccess = true;

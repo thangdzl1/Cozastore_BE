@@ -5,5 +5,5 @@ import com.cybersoft.cozastore.payload.response.OrderResponse;
 
 public interface OrderServiceImp {
     OrderResponse findOrderByUser(int id);
-    boolean saveOrder(OrderRequest orderRequest);
+    boolean updateOrder(OrderRequest orderRequest);
 }
