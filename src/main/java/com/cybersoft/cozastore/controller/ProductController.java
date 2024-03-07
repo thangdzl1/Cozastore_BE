@@ -1,32 +1,18 @@
 package com.cybersoft.cozastore.controller;
 
-import com.cybersoft.cozastore.entity.ProductEntity;
-import com.cybersoft.cozastore.exception.CustomException;
-import com.cybersoft.cozastore.payload.request.OrderDetailRequest;
-import com.cybersoft.cozastore.payload.request.OrderRequest;
-import com.cybersoft.cozastore.payload.request.ProductPropertiesRequest;
-import com.cybersoft.cozastore.payload.request.SignupRequest;
 import com.cybersoft.cozastore.payload.response.BaseResponse;
-import com.cybersoft.cozastore.payload.response.OrderDetailResponse;
 import com.cybersoft.cozastore.payload.response.ProductResponse;
-import com.cybersoft.cozastore.repository.OrderRepository;
 import com.cybersoft.cozastore.service.Imp.OrderDetailServiceImp;
 import com.cybersoft.cozastore.service.Imp.OrderServiceImp;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
-import com.cybersoft.cozastore.service.OrderDetailService;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController

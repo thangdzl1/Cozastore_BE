@@ -3,12 +3,7 @@ package com.cybersoft.cozastore.payload.request;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class OrderDetailRequest {
-
-    @NotNull(message = "quantity must not be null")
-    @NotEmpty(message = "quantity must not be empty")
-    private int quantity;
-
+public class OrderDetailDeleteRequest {
     @NotNull(message = "product id must not be null")
     @NotEmpty(message = "product id must not be empty")
     private int productId;
@@ -16,18 +11,6 @@ public class OrderDetailRequest {
     @NotNull(message = "order id must not be null")
     @NotEmpty(message = "order id must not be empty")
     private int orderId;
-
-    @NotNull(message = "price must not be null")
-    @NotEmpty(message = "price must not be empty")
-    private int price;
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public int getProductId() {
         return productId;
@@ -45,11 +28,4 @@ public class OrderDetailRequest {
         this.orderId = orderId;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }

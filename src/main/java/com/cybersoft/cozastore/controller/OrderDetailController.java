@@ -1,7 +1,8 @@
 package com.cybersoft.cozastore.controller;
 
 import com.cybersoft.cozastore.exception.CustomException;
-import com.cybersoft.cozastore.payload.request.OrderDetailRequest;
+import com.cybersoft.cozastore.payload.request.OrderDetailDeleteRequest;
+import com.cybersoft.cozastore.payload.request.OrderDetailUpdateRequest;
 import com.cybersoft.cozastore.payload.request.ProductPropertiesRequest;
 import com.cybersoft.cozastore.payload.response.BaseResponse;
 import com.cybersoft.cozastore.service.Imp.OrderDetailServiceImp;
@@ -35,7 +36,7 @@ public class OrderDetailController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> updateOrderDetail(@Valid OrderDetailRequest request, BindingResult result) {
+    public ResponseEntity<?> updateOrderDetail(@Valid OrderDetailUpdateRequest request, BindingResult result) {
 
         List<FieldError> list = result.getFieldErrors();
 
@@ -69,4 +70,19 @@ public class OrderDetailController {
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteProductFromOrderDetail(@Valid OrderDetailDeleteRequest request, BindingResult result){
+        List<FieldError> list = result.getFieldErrors();
+
+        for (FieldError data: list) {
+            throw new CustomException(data.getDefaultMessage());
+        }
+        boolean isSuccess = orderDetailServiceImp.deleteOrderDetail(request);
+
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setStatusCode(200);
+        baseResponse.setData(isSuccess);
+
+        return new ResponseEntity<>(baseResponse,HttpStatus.OK);
+    }
 }

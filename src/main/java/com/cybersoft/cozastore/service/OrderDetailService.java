@@ -3,12 +3,12 @@ package com.cybersoft.cozastore.service;
 import com.cybersoft.cozastore.entity.OrderDetailEntity;
 import com.cybersoft.cozastore.entity.OrderEntity;
 import com.cybersoft.cozastore.entity.ProductEntity;
-import com.cybersoft.cozastore.entity.UserEntity;
 import com.cybersoft.cozastore.entity.ids.OrderDetailIds;
 import com.cybersoft.cozastore.exception.CustomException;
-import com.cybersoft.cozastore.payload.request.OrderDetailRequest;
+import com.cybersoft.cozastore.payload.request.OrderDetailDeleteRequest;
+import com.cybersoft.cozastore.payload.request.OrderDetailUpdateRequest;
+import com.cybersoft.cozastore.payload.request.OrderRequest;
 import com.cybersoft.cozastore.payload.request.ProductPropertiesRequest;
-import com.cybersoft.cozastore.payload.request.SignupRequest;
 import com.cybersoft.cozastore.payload.response.OrderDetailResponse;
 import com.cybersoft.cozastore.repository.*;
 import com.cybersoft.cozastore.service.Imp.OrderDetailServiceImp;
@@ -51,7 +51,7 @@ public class OrderDetailService implements OrderDetailServiceImp {
     }
 
     @Override
-    public boolean saveOrderDetail(OrderDetailRequest request) {
+    public boolean saveOrderDetail(OrderDetailUpdateRequest request) {
         boolean isSuccess = false;
         try {
             OrderDetailEntity entity = new OrderDetailEntity();
@@ -96,7 +96,7 @@ public class OrderDetailService implements OrderDetailServiceImp {
                 orderDetailIds.setOrderId(orderEntity.getId());
                 orderDetailIds.setProductId(productEntity.getId());
 
-                // set properties for orderDetailEntity
+                // set properties for orderDetailEntity and save
                 orderDetailEntity.setIds(orderDetailIds);
                 orderDetailEntity.setQuantity(request.getQuantity());
                 orderDetailEntity.setPrice(request.getQuantity()*productPrice);
@@ -106,7 +106,7 @@ public class OrderDetailService implements OrderDetailServiceImp {
                 orderDetailRepository.save(orderDetailEntity);
 
             } else {
-                //Nếu có rồi thì cộng thêm vào quantity và tính lại price
+                //Nếu có rồi thì cộng thêm vào oderDetail's quantity và tính lại price
                 orderDetailEntity.setQuantity(orderDetailEntity.getQuantity() + request.getQuantity());
                 orderDetailEntity.setPrice(orderDetailEntity.getQuantity()* productEntity.getPrice());
                 productEntity.setQuantity(productEntity.getQuantity() - request.getQuantity());
@@ -117,6 +117,25 @@ public class OrderDetailService implements OrderDetailServiceImp {
             isSuccess = true;
         } catch (Exception e) {
             throw new CustomException("Error addOrderDetail in OrderDetailService " + e.getMessage());
+        }
+        return isSuccess;
+    }
+
+    @Override
+    public boolean deleteOrderDetail(OrderDetailDeleteRequest request) {
+        boolean isSuccess = false;
+        try {
+            OrderDetailIds ids = new OrderDetailIds();
+
+            ids.setOrderId(request.getOrderId());
+            ids.setProductId(request.getProductId());
+            OrderDetailEntity orderDetailEntity = orderDetailRepository.findById(ids)
+                                                        .orElseThrow(() -> new CustomException("OrderDetail not found"));
+
+            orderDetailRepository.delete(orderDetailEntity);
+            isSuccess = true;
+        } catch (Exception e) {
+            throw new CustomException("Error deleteOrderDetail in OrderDetailService " + e.getMessage());
         }
         return isSuccess;
     }
