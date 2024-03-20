@@ -31,7 +31,7 @@ public class UserService implements UserServiceImp {
             isSuccess = true;
             userRepository.save(user);
         }catch (Exception e){
-            throw new CustomException("Error addUser in UserRepository "+e.getMessage());
+            throw new CustomException("Error addUser in UserServiceImp "+e.getMessage());
         }
         return isSuccess;
     }
