@@ -15,7 +15,7 @@ public class GlobalCustomException {
 
         BaseResponse response = new BaseResponse();
         response.setStatusCode(500);
-        response.setData(e.getMessage());
+        response.setMessage(e.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
@@ -25,7 +25,7 @@ public class GlobalCustomException {
 
         BaseResponse response = new BaseResponse();
         response.setStatusCode(500);
-        response.setData(e.getMessage());
+        response.setMessage(e.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -34,7 +34,7 @@ public class GlobalCustomException {
     public ResponseEntity<?> handleUserNotFoundException(Exception e){
         BaseResponse response = new BaseResponse();
         response.setStatusCode(500);
-        response.setData(e.getMessage());
+        response.setMessage(e.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
