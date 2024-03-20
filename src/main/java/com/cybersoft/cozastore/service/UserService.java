@@ -21,17 +21,17 @@ public class UserService implements UserServiceImp {
     @Override
     public boolean addUser(SignupRequest request) {
         boolean isSuccess = false;
+        if(userRepository.findByUsername(request.getUsername()) != null)
+            throw new CustomException("Username existed");
         try {
             UserEntity user = new UserEntity();
-            if(userRepository.findByUsername(request.getUsername()) != null)
-                throw new CustomException("Username existed");
             user.setUsername(request.getUsername());
             user.setPassword(passwordEncoder.encode(request.getPassword()));
             user.setEmail(request.getEmail());
             isSuccess = true;
             userRepository.save(user);
         }catch (Exception e){
-            throw new CustomException("Lỗi thêm user "+e.getMessage());
+            throw new CustomException("Error addUser in UserRepository "+e.getMessage());
         }
         return isSuccess;
     }
