@@ -23,6 +23,8 @@ public class UserService implements UserServiceImp {
         boolean isSuccess = false;
         try {
             UserEntity user = new UserEntity();
+            if(userRepository.findByUsername(request.getUsername()) != null)
+                throw new CustomException("Username existed");
             user.setUsername(request.getUsername());
             user.setPassword(passwordEncoder.encode(request.getPassword()));
             user.setEmail(request.getEmail());
