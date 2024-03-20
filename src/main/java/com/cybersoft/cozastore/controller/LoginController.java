@@ -41,10 +41,10 @@ public class LoginController {
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public ResponseEntity<?> signin(
-            @RequestParam String email,
+            @RequestParam String username,
             @RequestParam String password
     ) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         authenticationManager.authenticate(token);
         String jwt = jwtHelper.generateToken("Hello login");
         //Nếu chứng thực thành công sẽ chạy code tiếp theo còn nếu thất bại thì sẽ văng lỗi chưa chứng thực
