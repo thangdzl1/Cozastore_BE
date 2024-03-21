@@ -8,5 +8,5 @@ public interface ProductServiceImp {
     List<ProductResponse> getProductByCategory(int id);
     List<ProductResponse> getProductByUser(int id);
     ProductResponse getProductById(int id);
-    public List<ProductResponse> findAllDistinctProduct();
+    List<ProductResponse> findAllDistinctProduct();
 }
