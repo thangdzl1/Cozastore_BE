@@ -88,6 +88,8 @@ public class ProductService implements ProductServiceImp {
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
                 productResponse.setCategory(data.getCategory().getName());
+                productResponse.setDescription(data.getDescription());
+                productResponse.setQuantity(data.getQuantity());
                 productResponseList.add(productResponse);
             }
         }catch (Exception e){
