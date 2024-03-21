@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface SizeRepository extends JpaRepository<SizeEntity, Integer>{
-    @Query("SELECT p from product p " +
-            "join  p.size s " +
-            "where p.name = ?1")
+    @Query("select s from size s " +
+            "join  s.products p where p.name = ?1 " +
+            "group by s.id")
     List<SizeEntity> findAllByProductName(String name);
 }
