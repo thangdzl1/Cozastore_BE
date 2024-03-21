@@ -5,6 +5,18 @@ public class ProductResponse {
     private String name;
     private double price;
     private String image;
+    private String category;
+    private String description;
+    private int quantity;
+    
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public int getId() {
         return id;

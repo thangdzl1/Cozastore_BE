@@ -87,11 +87,12 @@ public class ProductService implements ProductServiceImp {
                 productResponse.setImage(data.getImage());
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
+                productResponse.setCategory(data.getCategory().getName());
                 productResponseList.add(productResponse);
             }
-            return productResponseList;
         }catch (Exception e){
             throw new CustomException("Error findAll in ProductService " + e.getMessage());
         }
+        return productResponseList;
     }
 }

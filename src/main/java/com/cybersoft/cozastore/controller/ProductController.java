@@ -39,7 +39,7 @@ public class ProductController {
         baseResponse.setStatusCode(200);
         baseResponse.setData(listProduct);
 
-        return new ResponseEntity<>(listProduct, HttpStatus.OK);
+        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
 
     @GetMapping("/category/{id}")
