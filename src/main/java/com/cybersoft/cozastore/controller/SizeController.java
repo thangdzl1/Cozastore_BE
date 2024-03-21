@@ -17,10 +17,10 @@ public class SizeController {
     private SizeServiceImp sizeServiceImp;
 
     @GetMapping("")
-    public ResponseEntity<?> findAllSizeByProductName(@RequestParam String productName){
+    public ResponseEntity<?> findAllSizeByProductName(@RequestParam String name){
 
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setData(sizeServiceImp.findAllSizeByProductName(productName));
+        baseResponse.setData(sizeServiceImp.findAllSizeByProductName(name));
         baseResponse.setStatusCode(200);
 
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
