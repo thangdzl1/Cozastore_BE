@@ -11,9 +11,6 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "image")
-    private String image;
-
     @Column(name = "name")
     private String name;
 
@@ -26,10 +23,6 @@ public class ProductEntity {
     @Column(name = "quantity")
     @Min(value = 0, message = "Quantity must be greater than 0")
     private int quantity;
-
-    @Column(name = "image_detail")
-    private String imageDetail;
-
     @ManyToOne
     @JoinColumn(name = "size_id")
     private SizeEntity size;
@@ -45,6 +38,17 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product")
     private Set<OrderDetailEntity> orderDetails;
 
+    @OneToMany(mappedBy = "product")
+    private Set<ImageEntity> image;
+
+    public Set<ImageEntity> getImage() {
+        return image;
+    }
+
+    public void setImage(Set<ImageEntity> image) {
+        this.image = image;
+    }
+
     public Set<OrderDetailEntity> getOrderDetails() {
         return orderDetails;
     }
@@ -59,14 +63,6 @@ public class ProductEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getName() {
@@ -99,14 +95,6 @@ public class ProductEntity {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public String getImageDetail() {
-        return imageDetail;
-    }
-
-    public void setImageDetail(String imageDetail) {
-        this.imageDetail = imageDetail;
     }
 
     public SizeEntity getSize() {

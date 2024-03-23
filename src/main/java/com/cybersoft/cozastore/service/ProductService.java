@@ -25,7 +25,6 @@ public class ProductService implements ProductServiceImp {
             for (ProductEntity data: list) {
                 ProductResponse productResponse = new ProductResponse();
                 productResponse.setId(data.getId());
-                productResponse.setImage(data.getImage());
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
                 productResponseList.add(productResponse);
@@ -46,7 +45,6 @@ public class ProductService implements ProductServiceImp {
             for (ProductEntity data: list) {
                 ProductResponse productResponse = new ProductResponse();
                 productResponse.setId(data.getId());
-                productResponse.setImage(data.getImage());
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
                 productResponseList.add(productResponse);
@@ -65,7 +63,6 @@ public class ProductService implements ProductServiceImp {
         try {
             ProductEntity data = productRepository.findById(id);
                 productResponse.setId(data.getId());
-                productResponse.setImage(data.getImage());
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
 
@@ -84,7 +81,6 @@ public class ProductService implements ProductServiceImp {
             for (ProductEntity data: list) {
                 ProductResponse productResponse = new ProductResponse();
                 productResponse.setId(data.getId());
-                productResponse.setImage(data.getImage());
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
                 productResponse.setCategory(data.getCategory().getName());
