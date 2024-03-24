@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "p_image")
 public class ImageEntity {
@@ -13,9 +14,8 @@ public class ImageEntity {
     @Column(name = "detail")
     private String detail;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    @OneToMany(mappedBy = "image")
+    Set<ProductImageEntity> productImages;
 
     public int getId() {
         return id;
@@ -41,11 +41,11 @@ public class ImageEntity {
         this.detail = detail;
     }
 
-    public ProductEntity getProduct() {
-        return product;
+    public Set<ProductImageEntity> getProductImages() {
+        return productImages;
     }
 
-    public void setProduct(ProductEntity product) {
-        this.product = product;
+    public void setProductImages(Set<ProductImageEntity> productImages) {
+        this.productImages = productImages;
     }
 }

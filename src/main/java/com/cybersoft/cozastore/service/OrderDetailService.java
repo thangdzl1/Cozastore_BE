@@ -1,5 +1,6 @@
 package com.cybersoft.cozastore.service;
 
+import com.cybersoft.cozastore.entity.ImageEntity;
 import com.cybersoft.cozastore.entity.OrderDetailEntity;
 import com.cybersoft.cozastore.entity.OrderEntity;
 import com.cybersoft.cozastore.entity.ProductEntity;
@@ -29,6 +30,8 @@ public class OrderDetailService implements OrderDetailServiceImp {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private ImageRepository imageRepository;
     @Override
     public List<OrderDetailResponse> findByUser(int id) {
         List<OrderDetailEntity> list = orderDetailRepository.findByUser(id);
@@ -41,11 +44,19 @@ public class OrderDetailService implements OrderDetailServiceImp {
                 orderDetailResponse.setOrderId(data.getOrder().getId());
                 orderDetailResponse.setQuantity(data.getQuantity());
                 orderDetailResponse.setPrice(data.getPrice());
+                orderDetailResponse.setProductName(data.getProduct().getName());
 
+                List<ImageEntity> imageEntities = imageRepository.findByProductId(data.getProduct().getId());
+                List<String> imageUrls = new ArrayList<>();
+                for (ImageEntity imageEntity :
+                        imageEntities) {
+                    imageUrls.add(imageEntity.getSource());
+                }
+                orderDetailResponse.setProductImage(imageUrls);
                 orderDetailResponses.add(orderDetailResponse);
             }
         } catch (Exception e) {
-            throw new CustomException("Error findByUser in OrderDetailService");
+            throw new CustomException("Error findByUser in OrderDetailService: " + e.getMessage());
         }
         return orderDetailResponses;
     }

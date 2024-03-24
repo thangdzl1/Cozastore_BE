@@ -39,14 +39,14 @@ public class ProductEntity {
     private Set<OrderDetailEntity> orderDetails;
 
     @OneToMany(mappedBy = "product")
-    private Set<ImageEntity> image;
+    private Set<ProductImageEntity> productImages;
 
-    public Set<ImageEntity> getImage() {
-        return image;
+    public Set<ProductImageEntity> getProductImages() {
+        return productImages;
     }
 
-    public void setImage(Set<ImageEntity> image) {
-        this.image = image;
+    public void setProductImages(Set<ProductImageEntity> productImages) {
+        this.productImages = productImages;
     }
 
     public Set<OrderDetailEntity> getOrderDetails() {
