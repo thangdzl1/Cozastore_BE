@@ -6,8 +6,11 @@ import com.cybersoft.cozastore.payload.response.ProductResponse;
 import com.cybersoft.cozastore.repository.ProductRepository;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,11 +76,12 @@ public class ProductService implements ProductServiceImp {
     }
 
     @Override
-    public List<ProductResponse> findAllDistinctProduct(){
+    public List<ProductResponse> findAllDistinctProduct(PageRequest pageRequest) {
 
         List<ProductResponse> productResponseList = new ArrayList<>();
         try {
-            List<ProductEntity> list = productRepository.getAllProductForEachName();
+            Page<ProductEntity> pageList = productRepository.getAllProductGroupByName(pageRequest);
+            List<ProductEntity> list = pageList.getContent();//convert page to list
             for (ProductEntity data: list) {
                 ProductResponse productResponse = new ProductResponse();
                 productResponse.setId(data.getId());

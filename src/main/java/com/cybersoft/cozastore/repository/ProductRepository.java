@@ -1,14 +1,18 @@
 package com.cybersoft.cozastore.repository;
 
 import com.cybersoft.cozastore.entity.ProductEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository <ProductEntity, Integer> {
+public interface ProductRepository extends JpaRepository <ProductEntity, Integer>, PagingAndSortingRepository<ProductEntity, Integer>{
     List<ProductEntity>findByCategoryId(int id);
 
     @Query("select p from product p " +
@@ -28,5 +32,5 @@ public interface ProductRepository extends JpaRepository <ProductEntity, Integer
             "select min (p.id) " +
             "from product p " +
             "group by p.name)")
-    List<ProductEntity> getAllProductForEachName();
+    Page<ProductEntity> getAllProductGroupByName(PageRequest pageRequest);
 }

@@ -6,9 +6,12 @@ import com.cybersoft.cozastore.service.Imp.OrderDetailServiceImp;
 import com.cybersoft.cozastore.service.Imp.OrderServiceImp;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
 import com.google.gson.Gson;
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +35,11 @@ public class ProductController {
     private Gson gson = new Gson();
 
     @GetMapping("")
-    public ResponseEntity<?> getAllProduct(){
-        List<ProductResponse> listProduct = productServiceImp.findAllDistinctProduct();
+    public ResponseEntity<?> getAllProduct(@RequestParam int page, @RequestParam int limit){
+        //giới hạn sản phẩm trả về
+        PageRequest pageRequest = PageRequest.of(page,limit);
+
+        List<ProductResponse> listProduct = productServiceImp.findAllDistinctProduct(pageRequest);
 
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(200);
