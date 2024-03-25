@@ -1,8 +1,10 @@
 package com.cybersoft.cozastore.service;
 
+import com.cybersoft.cozastore.entity.ImageEntity;
 import com.cybersoft.cozastore.entity.ProductEntity;
 import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.response.ProductResponse;
+import com.cybersoft.cozastore.repository.ImageRepository;
 import com.cybersoft.cozastore.repository.ProductRepository;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +22,33 @@ public class ProductService implements ProductServiceImp {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
     @Override
     public List<ProductResponse> getProductByCategory(int id) {
         List<ProductResponse> productResponseList = new ArrayList<>();
         try {
             List<ProductEntity> list = productRepository.findByCategoryId(id);
-            for (ProductEntity data: list) {
+            for (ProductEntity data : list) {
                 ProductResponse productResponse = new ProductResponse();
                 productResponse.setId(data.getId());
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
+                productResponse.setDescription(data.getDescription());
+                productResponse.setCategory(data.getCategory().getName());
+                productResponse.setQuantity(data.getQuantity());
+
+                // Get image source list and pass to productResponse
+                List<ImageEntity> imageList = imageRepository.findByProductId(data.getId());
+                List<String> imageSource = new ArrayList<>();
+                for (ImageEntity imageEntity : imageList) {
+                    imageSource.add(imageEntity.getSource());
+                }
+
                 productResponseList.add(productResponse);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new CustomException("Error getProductByCategory in ProductService" + e.getMessage());
         }
 
@@ -45,14 +61,24 @@ public class ProductService implements ProductServiceImp {
 
         try {
             List<ProductEntity> list = productRepository.findByUser(id);
-            for (ProductEntity data: list) {
+            for (ProductEntity data : list) {
                 ProductResponse productResponse = new ProductResponse();
                 productResponse.setId(data.getId());
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
+                productResponse.setDescription(data.getDescription());
+                productResponse.setCategory(data.getCategory().getName());
+                productResponse.setQuantity(data.getQuantity());
+
+                // Get image source list and pass to productResponse
+                List<ImageEntity> imageList = imageRepository.findByProductId(data.getId());
+                List<String> imageSource = new ArrayList<>();
+                for (ImageEntity imageEntity : imageList) {
+                    imageSource.add(imageEntity.getSource());
+                }
                 productResponseList.add(productResponse);
             }
-        }catch (Exception e ){
+        } catch (Exception e) {
             throw new CustomException("Error getProductByUser in ProductService" + e.getMessage());
         }
 
@@ -65,11 +91,23 @@ public class ProductService implements ProductServiceImp {
 
         try {
             ProductEntity data = productRepository.findById(id);
-                productResponse.setId(data.getId());
-                productResponse.setPrice(data.getPrice());
-                productResponse.setName(data.getName());
+            productResponse.setId(data.getId());
+            productResponse.setPrice(data.getPrice());
+            productResponse.setName(data.getName());
+            productResponse.setDescription(data.getDescription());
+            productResponse.setCategory(data.getCategory().getName());
+            productResponse.setQuantity(data.getQuantity());
 
-        }catch (Exception e ){
+            // Get image source list and pass to productResponse
+            List<ImageEntity> imageList = imageRepository.findByProductId(data.getId());
+            List<String> imageSource = new ArrayList<>();
+            for (ImageEntity imageEntity : imageList) {
+                imageSource.add(imageEntity.getSource());
+            }
+
+            productResponse.setImage(imageSource);
+
+        } catch (Exception e) {
             throw new CustomException("Error getProductById in ProductService" + e.getMessage());
         }
         return productResponse;
@@ -82,17 +120,24 @@ public class ProductService implements ProductServiceImp {
         try {
             Page<ProductEntity> pageList = productRepository.getAllProductGroupByName(pageRequest);
             List<ProductEntity> list = pageList.getContent();//convert page to list
-            for (ProductEntity data: list) {
+            for (ProductEntity data : list) {
                 ProductResponse productResponse = new ProductResponse();
                 productResponse.setId(data.getId());
                 productResponse.setPrice(data.getPrice());
                 productResponse.setName(data.getName());
-                productResponse.setCategory(data.getCategory().getName());
                 productResponse.setDescription(data.getDescription());
+                productResponse.setCategory(data.getCategory().getName());
                 productResponse.setQuantity(data.getQuantity());
+
+                // Get image source list and pass to productResponse
+                List<ImageEntity> imageList = imageRepository.findByProductId(data.getId());
+                List<String> imageSource = new ArrayList<>();
+                for (ImageEntity imageEntity : imageList) {
+                    imageSource.add(imageEntity.getSource());
+                }
                 productResponseList.add(productResponse);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new CustomException("Error findAll in ProductService " + e.getMessage());
         }
         return productResponseList;

@@ -70,6 +70,15 @@ public class ProductController {
 
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable int id){
+        ProductResponse productResponse = productServiceImp.getProductById(id);
 
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setStatusCode(200);
+        baseResponse.setData(productResponse);
+
+        return new ResponseEntity<>(baseResponse,HttpStatus.OK);
+    }
 
 }

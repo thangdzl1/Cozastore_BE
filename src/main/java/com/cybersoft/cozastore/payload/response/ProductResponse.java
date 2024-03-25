@@ -1,10 +1,12 @@
 package com.cybersoft.cozastore.payload.response;
 
+import java.util.List;
+
 public class ProductResponse {
     private int id;
     private String name;
     private double price;
-    private String image;
+    private List<String> image;
     private String category;
     private String description;
     private int quantity;
@@ -57,11 +59,11 @@ public class ProductResponse {
         this.price = price;
     }
 
-    public String getImage() {
+    public List<String> getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(List<String> image) {
         this.image = image;
     }
 }

@@ -1,7 +1,14 @@
 package com.cybersoft.cozastore.payload.request;
 
-public class ProductPropertiesRequest {
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+public class OrderDetailAdd {
+    @NotNull(message = "Please select a size")
+    @NotEmpty(message = "Please select a size")
     private int sizeId;
+    @NotNull(message = "Please select a color")
+    @NotEmpty(message = "Please select a color")
     private int colorId;
     private int quantity;
     private String productName;

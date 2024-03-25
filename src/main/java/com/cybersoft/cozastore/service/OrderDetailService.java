@@ -8,8 +8,7 @@ import com.cybersoft.cozastore.entity.ids.OrderDetailIds;
 import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.request.OrderDetailDeleteRequest;
 import com.cybersoft.cozastore.payload.request.OrderDetailUpdateRequest;
-import com.cybersoft.cozastore.payload.request.OrderRequest;
-import com.cybersoft.cozastore.payload.request.ProductPropertiesRequest;
+import com.cybersoft.cozastore.payload.request.OrderDetailAdd;
 import com.cybersoft.cozastore.payload.response.OrderDetailResponse;
 import com.cybersoft.cozastore.repository.*;
 import com.cybersoft.cozastore.service.Imp.OrderDetailServiceImp;
@@ -86,7 +85,7 @@ public class OrderDetailService implements OrderDetailServiceImp {
     }
 
     @Override
-    public boolean addOrderDetail(ProductPropertiesRequest request) {
+    public boolean addOrderDetail(OrderDetailAdd request) {
         boolean isSuccess = false;
         try {
             //find product theo colorId, sizeId và name
