@@ -3,7 +3,7 @@ package com.cybersoft.cozastore.controller;
 import com.cybersoft.cozastore.exception.CustomException;
 import com.cybersoft.cozastore.payload.request.OrderDetailDeleteRequest;
 import com.cybersoft.cozastore.payload.request.OrderDetailUpdateRequest;
-import com.cybersoft.cozastore.payload.request.OrderDetailAdd;
+import com.cybersoft.cozastore.payload.request.OrderDetailAddRequest;
 import com.cybersoft.cozastore.payload.response.BaseResponse;
 import com.cybersoft.cozastore.service.Imp.OrderDetailServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import javax.validation.Valid;
 import java.util.List;
@@ -54,7 +55,7 @@ public class OrderDetailController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addProductToOrderDetail(@Valid OrderDetailAdd request, BindingResult result){
+    public ResponseEntity<?> addProductToOrderDetail(@Valid OrderDetailAddRequest request, BindingResult result){
         List<FieldError> list = result.getFieldErrors();
 
         for (FieldError data: list) {
