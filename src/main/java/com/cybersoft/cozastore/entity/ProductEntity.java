@@ -41,6 +41,9 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product")
     private Set<ProductImageEntity> productImages;
 
+    @OneToMany(mappedBy = "product")
+    private Set<UserReviewEntity> userReviews;
+
     public Set<ProductImageEntity> getProductImages() {
         return productImages;
     }
