@@ -2,6 +2,8 @@ package com.cybersoft.cozastore.controller;
 
 import com.cybersoft.cozastore.payload.response.BaseResponse;
 import com.cybersoft.cozastore.payload.response.ProductResponse;
+import com.cybersoft.cozastore.service.CategoryService;
+import com.cybersoft.cozastore.service.Imp.CategoryServiceImp;
 import com.cybersoft.cozastore.service.Imp.OrderDetailServiceImp;
 import com.cybersoft.cozastore.service.Imp.OrderServiceImp;
 import com.cybersoft.cozastore.service.Imp.ProductServiceImp;
@@ -26,13 +28,10 @@ public class ProductController {
     private ProductServiceImp productServiceImp;
 
     @Autowired
-    private OrderDetailServiceImp orderDetailServiceImp;
-
-    @Autowired
     private OrderServiceImp orderServiceImp;
 
-    private Logger logger = LoggerFactory.getLogger(ProductController.class);
-    private Gson gson = new Gson();
+//    private Logger logger = LoggerFactory.getLogger(ProductController.class);
+//    private Gson gson = new Gson();
 
     @GetMapping("")
     public ResponseEntity<?> getAllProduct(@RequestParam int page, @RequestParam int limit){
@@ -50,13 +49,13 @@ public class ProductController {
 
     @GetMapping("/category/{id}")
     public ResponseEntity<?> getProductByCategory(@PathVariable int id){
-        logger.info("Tham so " + id);
+//        logger.info("Tham so " + id);
 
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(200);
         baseResponse.setData(productServiceImp.getProductByCategory(id));
 
-        logger.info(gson.toJson(baseResponse));
+//        logger.info(gson.toJson(baseResponse));
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 
@@ -81,4 +80,14 @@ public class ProductController {
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
     }
 
+    @GetMapping("/category")
+    public ResponseEntity<?> getProductByCategoryName(
+            @RequestParam String name
+    ){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setStatusCode(200);
+        baseResponse.setData(productServiceImp.getProductByCategoryName(name));
+
+        return new ResponseEntity<>(baseResponse,HttpStatus.OK);
+    }
 }

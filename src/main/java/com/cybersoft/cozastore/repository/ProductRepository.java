@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.repository;
 
 import com.cybersoft.cozastore.entity.ProductEntity;
+import com.cybersoft.cozastore.payload.response.ProductResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,4 +34,6 @@ public interface ProductRepository extends JpaRepository <ProductEntity, Integer
             "from product p " +
             "group by p.name)")
     Page<ProductEntity> getAllProductGroupByName(PageRequest pageRequest);
+
+    List<ProductEntity> findByCategoryName(String name);
 }

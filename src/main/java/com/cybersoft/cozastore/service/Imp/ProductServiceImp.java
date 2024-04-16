@@ -12,4 +12,5 @@ public interface ProductServiceImp {
     List<ProductResponse> getProductByUser(int id);
     ProductResponse getProductById(int id);
     List<ProductResponse> findAllDistinctProduct(PageRequest pageRequest);
+    List<ProductResponse> getProductByCategoryName(String name);
 }

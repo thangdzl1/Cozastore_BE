@@ -142,4 +142,37 @@ public class ProductService implements ProductServiceImp {
         }
         return productResponseList;
     }
+
+    @Override
+    public List<ProductResponse> getProductByCategoryName(String name) {
+        List <ProductResponse> responses = new ArrayList<>();
+        try {
+            List <ProductEntity> entityList = productRepository.findByCategoryName(name);
+
+            for (ProductEntity data : entityList) {
+                ProductResponse productResponse1 = new ProductResponse();
+                productResponse1.setId(data.getId());
+                productResponse1.setPrice(data.getPrice());
+                productResponse1.setName(data.getName());
+                productResponse1.setDescription(data.getDescription());
+                productResponse1.setCategory(data.getCategory().getName());
+                productResponse1.setQuantity(data.getQuantity());
+
+                // Get image source list and pass to productResponse
+                List<ImageEntity> imageList = imageRepository.findByProductId(data.getId());
+                List<String> imageSource = new ArrayList<>();
+                for (ImageEntity imageEntity : imageList) {
+                    imageSource.add(imageEntity.getSource());
+                }
+
+                productResponse1.setImage(imageSource);
+                responses.add(productResponse1);
+            }
+
+
+        } catch (Exception e) {
+            throw new CustomException("Error getProductById in ProductService" + e.getMessage());
+        }
+        return responses;
+    }
 }
