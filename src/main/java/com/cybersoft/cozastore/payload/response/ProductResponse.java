@@ -9,7 +9,16 @@ public class ProductResponse {
     private List<String> image;
     private String category;
     private String description;
+    private String fullDescription;
     private int quantity;
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
 
     public String getDescription() {
         return description;

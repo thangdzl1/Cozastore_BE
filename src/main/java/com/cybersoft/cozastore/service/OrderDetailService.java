@@ -60,24 +60,24 @@ public class OrderDetailService implements OrderDetailServiceImp {
 //        return orderDetailResponses;
 //    }
 
-    @Override
-    public boolean saveOrderDetail(OrderDetailUpdateRequest request) {
-        boolean isSuccess = false;
-        try {
-            OrderDetailEntity entity = new OrderDetailEntity();
-            OrderDetailIds ids = new OrderDetailIds();
-            ids.setOrderId(request.getOrderId());
-            ids.setProductId(request.getProductId());
-            entity.setIds(ids);
-            entity.setPrice(request.getPrice());
-            entity.setQuantity(request.getQuantity());
-            orderDetailRepository.save(entity);
-            isSuccess = true;
-        } catch (Exception e) {
-            throw new CustomException("Error saveOrderDetail in OrderDetailService " + e.getMessage());
-        }
-        return isSuccess;
-    }
+//    @Override
+//    public boolean saveOrderDetail(OrderDetailUpdateRequest request) {
+//        boolean isSuccess = false;
+//        try {
+//            OrderDetailEntity entity = new OrderDetailEntity();
+//            OrderDetailIds ids = new OrderDetailIds();
+//            ids.setOrderId(request.getOrderId());
+//            ids.setProductId(request.getProductId());
+//            entity.setIds(ids);
+//            entity.setPrice(request.getPrice());
+//            entity.setQuantity(request.getQuantity());
+//            orderDetailRepository.save(entity);
+//            isSuccess = true;
+//        } catch (Exception e) {
+//            throw new CustomException("Error saveOrderDetail in OrderDetailService " + e.getMessage());
+//        }
+//        return isSuccess;
+//    }
 
 //    @Override
 //    public List<OrderDetailResponse> findByUserAndProduct(int userId, int productId) {
@@ -131,22 +131,22 @@ public class OrderDetailService implements OrderDetailServiceImp {
 //        return isSuccess;
 //    }
 
-    @Override
-    public boolean deleteOrderDetail(OrderDetailDeleteRequest request) {
-        boolean isSuccess = false;
-        try {
-            OrderDetailIds ids = new OrderDetailIds();
-
-            ids.setOrderId(request.getOrderId());
-            ids.setProductId(request.getProductId());
-            OrderDetailEntity orderDetailEntity = orderDetailRepository.findById(ids)
-                                                        .orElseThrow(() -> new CustomException("OrderDetail not found"));
-
-            orderDetailRepository.delete(orderDetailEntity);
-            isSuccess = true;
-        } catch (Exception e) {
-            throw new CustomException("Error deleteOrderDetail in OrderDetailService " + e.getMessage());
-        }
-        return isSuccess;
-    }
+//    @Override
+//    public boolean deleteOrderDetail(OrderDetailDeleteRequest request) {
+//        boolean isSuccess = false;
+//        try {
+//            OrderDetailIds ids = new OrderDetailIds();
+//
+//            ids.setOrderId(request.getOrderId());
+//            ids.setProductId(request.getProductId());
+//            OrderDetailEntity orderDetailEntity = orderDetailRepository.findById(ids)
+//                                                        .orElseThrow(() -> new CustomException("OrderDetail not found"));
+//
+//            orderDetailRepository.delete(orderDetailEntity);
+//            isSuccess = true;
+//        } catch (Exception e) {
+//            throw new CustomException("Error deleteOrderDetail in OrderDetailService " + e.getMessage());
+//        }
+//        return isSuccess;
+//    }
 }

@@ -14,15 +14,11 @@ public class ProductEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
-    private int price;
-
     @Column(name = "description")
     private String description;
 
-    @Column(name = "quantity")
-    @Min(value = 0, message = "Quantity must be greater than 0")
-    private int quantity;
+    @Column(name = "full_description")
+    private String fullDescription;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -36,6 +32,14 @@ public class ProductEntity {
 
     @OneToMany(mappedBy = "product")
     private Set<ProductSkusEntity> productSkus;
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
 
     public Set<UserReviewEntity> getUserReviews() {
         return userReviews;
@@ -77,28 +81,12 @@ public class ProductEntity {
         this.name = name;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public CategoryEntity getCategory() {
