@@ -26,15 +26,15 @@ public class OrderDetailController {
     @Autowired
     private OrderDetailServiceImp orderDetailServiceImp;
 
-    @PostMapping("")
-    public ResponseEntity<?> getOrderDetailByUser(@RequestParam int userId){
-
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setStatusCode(200);
-        baseResponse.setData(orderDetailServiceImp.findByUser(userId));
-
-        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
-    }
+//    @PostMapping("")
+//    public ResponseEntity<?> getOrderDetailByUser(@RequestParam int userId){
+//
+//        BaseResponse baseResponse = new BaseResponse();
+//        baseResponse.setStatusCode(200);
+//        baseResponse.setData(orderDetailServiceImp.findByUser(userId));
+//
+//        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
+//    }
 
     @PostMapping("/update")
     public ResponseEntity<?> updateOrderDetail(@Valid OrderDetailUpdateRequest request, BindingResult result) {
@@ -54,22 +54,22 @@ public class OrderDetailController {
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addProductToOrderDetail(@Valid OrderDetailAddRequest request, BindingResult result){
-        List<FieldError> list = result.getFieldErrors();
-
-        for (FieldError data: list) {
-            throw new CustomException(data.getDefaultMessage());
-        }
-
-        boolean isSuccess = orderDetailServiceImp.addOrderDetail(request);
-
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setStatusCode(200);
-        baseResponse.setData(isSuccess);
-
-        return new ResponseEntity<>(baseResponse,HttpStatus.OK);
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<?> addProductToOrderDetail(@Valid OrderDetailAddRequest request, BindingResult result){
+//        List<FieldError> list = result.getFieldErrors();
+//
+//        for (FieldError data: list) {
+//            throw new CustomException(data.getDefaultMessage());
+//        }
+//
+//        boolean isSuccess = orderDetailServiceImp.addOrderDetail(request);
+//
+//        BaseResponse baseResponse = new BaseResponse();
+//        baseResponse.setStatusCode(200);
+//        baseResponse.setData(isSuccess);
+//
+//        return new ResponseEntity<>(baseResponse,HttpStatus.OK);
+//    }
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteProductFromOrderDetail(@Valid OrderDetailDeleteRequest request, BindingResult result){

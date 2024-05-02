@@ -31,34 +31,34 @@ public class OrderDetailService implements OrderDetailServiceImp {
 
     @Autowired
     private ImageRepository imageRepository;
-    @Override
-    public List<OrderDetailResponse> findByUser(int id) {
-        List<OrderDetailEntity> list = orderDetailRepository.findByUser(id);
-        List<OrderDetailResponse> orderDetailResponses = new ArrayList<>();
-        try {
-            for (OrderDetailEntity data :
-                    list) {
-                OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
-                orderDetailResponse.setProductId(data.getProduct().getId());
-                orderDetailResponse.setOrderId(data.getOrder().getId());
-                orderDetailResponse.setQuantity(data.getQuantity());
-                orderDetailResponse.setPrice(data.getPrice());
-                orderDetailResponse.setProductName(data.getProduct().getName());
-
-                List<ImageEntity> imageEntities = imageRepository.findByProductId(data.getProduct().getId());
-                List<String> imageUrls = new ArrayList<>();
-                for (ImageEntity imageEntity :
-                        imageEntities) {
-                    imageUrls.add(imageEntity.getSource());
-                }
-                orderDetailResponse.setProductImage(imageUrls);
-                orderDetailResponses.add(orderDetailResponse);
-            }
-        } catch (Exception e) {
-            throw new CustomException("Error findByUser in OrderDetailService: " + e.getMessage());
-        }
-        return orderDetailResponses;
-    }
+//    @Override
+//    public List<OrderDetailResponse> findByUser(int id) {
+//        List<OrderDetailEntity> list = orderDetailRepository.findByUser(id);
+//        List<OrderDetailResponse> orderDetailResponses = new ArrayList<>();
+//        try {
+//            for (OrderDetailEntity data :
+//                    list) {
+//                OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
+//                orderDetailResponse.setProductId(data.getProduct().getId());
+//                orderDetailResponse.setOrderId(data.getOrder().getId());
+//                orderDetailResponse.setQuantity(data.getQuantity());
+//                orderDetailResponse.setPrice(data.getPrice());
+//                orderDetailResponse.setProductName(data.getProduct().getName());
+//
+//                List<ImageEntity> imageEntities = imageRepository.findByProductId(data.getProduct().getId());
+//                List<String> imageUrls = new ArrayList<>();
+//                for (ImageEntity imageEntity :
+//                        imageEntities) {
+//                    imageUrls.add(imageEntity.getSource());
+//                }
+//                orderDetailResponse.setProductImage(imageUrls);
+//                orderDetailResponses.add(orderDetailResponse);
+//            }
+//        } catch (Exception e) {
+//            throw new CustomException("Error findByUser in OrderDetailService: " + e.getMessage());
+//        }
+//        return orderDetailResponses;
+//    }
 
     @Override
     public boolean saveOrderDetail(OrderDetailUpdateRequest request) {
@@ -79,57 +79,57 @@ public class OrderDetailService implements OrderDetailServiceImp {
         return isSuccess;
     }
 
-    @Override
-    public List<OrderDetailResponse> findByUserAndProduct(int userId, int productId) {
-        return null;
-    }
+//    @Override
+//    public List<OrderDetailResponse> findByUserAndProduct(int userId, int productId) {
+//        return null;
+//    }
 
-    @Override
-    public boolean addOrderDetail(OrderDetailAddRequest request) {
-        boolean isSuccess = false;
-        try {
-            //find product theo colorId, sizeId và name
-            ProductEntity productEntity = productRepository.findByColorIdAndSizeIdAndName(request.getColorId()
-                    , request.getSizeId()
-                    , request.getProductName());
-
-            //nếu orderDetail chưa có thì tạo orderDetail mới
-            OrderDetailEntity orderDetailEntity = orderDetailRepository.findByProductIdAndUserId(productEntity.getId(), request.getUserId());
-
-            if (orderDetailEntity == null) {
-
-                OrderEntity orderEntity = orderRepository.findByUserId(request.getUserId());
-                OrderDetailIds orderDetailIds = new OrderDetailIds();
-                orderDetailEntity = new OrderDetailEntity();
-                int productPrice = productEntity.getPrice();
-
-                orderDetailIds.setOrderId(orderEntity.getId());
-                orderDetailIds.setProductId(productEntity.getId());
-
-                // set properties for orderDetailEntity and save
-                orderDetailEntity.setIds(orderDetailIds);
-                orderDetailEntity.setQuantity(request.getQuantity());
-                orderDetailEntity.setPrice(request.getQuantity()*productPrice);
-
-                productEntity.setQuantity(productEntity.getQuantity() - request.getQuantity());
-                productRepository.save(productEntity);
-                orderDetailRepository.save(orderDetailEntity);
-
-            } else {
-                //Nếu có rồi thì cộng thêm vào oderDetail's quantity và tính lại price
-                orderDetailEntity.setQuantity(orderDetailEntity.getQuantity() + request.getQuantity());
-                orderDetailEntity.setPrice(orderDetailEntity.getQuantity()* productEntity.getPrice());
-                productEntity.setQuantity(productEntity.getQuantity() - request.getQuantity());
-
-                productRepository.save(productEntity);
-                orderDetailRepository.save(orderDetailEntity);
-            }
-            isSuccess = true;
-        } catch (Exception e) {
-            throw new CustomException("Error addOrderDetail in OrderDetailService " + e.getMessage());
-        }
-        return isSuccess;
-    }
+//    @Override
+//    public boolean addOrderDetail(OrderDetailAddRequest request) {
+//        boolean isSuccess = false;
+//        try {
+//            //find product theo colorId, sizeId và name
+//            ProductEntity productEntity = productRepository.findByColorIdAndSizeIdAndName(request.getColorId()
+//                    , request.getSizeId()
+//                    , request.getProductName());
+//
+//            //nếu orderDetail chưa có thì tạo orderDetail mới
+//            OrderDetailEntity orderDetailEntity = orderDetailRepository.findByProductIdAndUserId(productEntity.getId(), request.getUserId());
+//
+//            if (orderDetailEntity == null) {
+//
+//                OrderEntity orderEntity = orderRepository.findByUserId(request.getUserId());
+//                OrderDetailIds orderDetailIds = new OrderDetailIds();
+//                orderDetailEntity = new OrderDetailEntity();
+//                int productPrice = productEntity.getPrice();
+//
+//                orderDetailIds.setOrderId(orderEntity.getId());
+//                orderDetailIds.setProductId(productEntity.getId());
+//
+//                // set properties for orderDetailEntity and save
+//                orderDetailEntity.setIds(orderDetailIds);
+//                orderDetailEntity.setQuantity(request.getQuantity());
+//                orderDetailEntity.setPrice(request.getQuantity()*productPrice);
+//
+//                productEntity.setQuantity(productEntity.getQuantity() - request.getQuantity());
+//                productRepository.save(productEntity);
+//                orderDetailRepository.save(orderDetailEntity);
+//
+//            } else {
+//                //Nếu có rồi thì cộng thêm vào oderDetail's quantity và tính lại price
+//                orderDetailEntity.setQuantity(orderDetailEntity.getQuantity() + request.getQuantity());
+//                orderDetailEntity.setPrice(orderDetailEntity.getQuantity()* productEntity.getPrice());
+//                productEntity.setQuantity(productEntity.getQuantity() - request.getQuantity());
+//
+//                productRepository.save(productEntity);
+//                orderDetailRepository.save(orderDetailEntity);
+//            }
+//            isSuccess = true;
+//        } catch (Exception e) {
+//            throw new CustomException("Error addOrderDetail in OrderDetailService " + e.getMessage());
+//        }
+//        return isSuccess;
+//    }
 
     @Override
     public boolean deleteOrderDetail(OrderDetailDeleteRequest request) {

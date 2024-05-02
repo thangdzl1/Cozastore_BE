@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "category_tag")
-public class CategoryTag {
+public class CategoryTagEntity {
 
     @EmbeddedId
     private CategoryTagIds ids;

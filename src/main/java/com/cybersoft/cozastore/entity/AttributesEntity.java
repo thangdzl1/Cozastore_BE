@@ -3,8 +3,8 @@ package com.cybersoft.cozastore.entity;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name = "size")
-public class SizeEntity {
+@Entity(name = "attributes")
+public class AttributesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -12,16 +12,8 @@ public class SizeEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "size")
-    private Set<ProductEntity> products;
-
-    public Set<ProductEntity> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<ProductEntity> products) {
-        this.products = products;
-    }
+    @OneToMany(mappedBy = "attribute")
+    private Set<AttributeOptionEntity> attributeOptions;
 
     public int getId() {
         return id;
@@ -37,5 +29,13 @@ public class SizeEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<AttributeOptionEntity> getAttributeOptions() {
+        return attributeOptions;
+    }
+
+    public void setAttributeOptions(Set<AttributeOptionEntity> attributeOptions) {
+        this.attributeOptions = attributeOptions;
     }
 }

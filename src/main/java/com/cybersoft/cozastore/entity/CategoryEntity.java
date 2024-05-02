@@ -14,17 +14,17 @@ public class CategoryEntity {
     private String name;
 
     @OneToMany(mappedBy = "category")
-    private Set<CategoryTag> categoryTags;
+    private Set<CategoryTagEntity> categoryTagEntities;
 
     @OneToMany(mappedBy = "category")
     private Set<ProductEntity> products;
 
-    public Set<CategoryTag> getCategoryTags() {
-        return categoryTags;
+    public Set<CategoryTagEntity> getCategoryTags() {
+        return categoryTagEntities;
     }
 
-    public void setCategoryTags(Set<CategoryTag> categoryTags) {
-        this.categoryTags = categoryTags;
+    public void setCategoryTags(Set<CategoryTagEntity> categoryTagEntities) {
+        this.categoryTagEntities = categoryTagEntities;
     }
 
     public int getId() {

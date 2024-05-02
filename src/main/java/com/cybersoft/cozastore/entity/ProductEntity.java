@@ -23,13 +23,6 @@ public class ProductEntity {
     @Column(name = "quantity")
     @Min(value = 0, message = "Quantity must be greater than 0")
     private int quantity;
-    @ManyToOne
-    @JoinColumn(name = "size_id")
-    private SizeEntity size;
-
-    @ManyToOne
-    @JoinColumn(name = "color_id")
-    private ColorEntity color;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -39,17 +32,25 @@ public class ProductEntity {
     private Set<OrderDetailEntity> orderDetails;
 
     @OneToMany(mappedBy = "product")
-    private Set<ProductImageEntity> productImages;
-
-    @OneToMany(mappedBy = "product")
     private Set<UserReviewEntity> userReviews;
 
-    public Set<ProductImageEntity> getProductImages() {
-        return productImages;
+    @OneToMany(mappedBy = "product")
+    private Set<ProductSkusEntity> productSkus;
+
+    public Set<UserReviewEntity> getUserReviews() {
+        return userReviews;
     }
 
-    public void setProductImages(Set<ProductImageEntity> productImages) {
-        this.productImages = productImages;
+    public void setUserReviews(Set<UserReviewEntity> userReviews) {
+        this.userReviews = userReviews;
+    }
+
+    public Set<ProductSkusEntity> getProductSkus() {
+        return productSkus;
+    }
+
+    public void setProductSkus(Set<ProductSkusEntity> productSkus) {
+        this.productSkus = productSkus;
     }
 
     public Set<OrderDetailEntity> getOrderDetails() {
@@ -98,22 +99,6 @@ public class ProductEntity {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public SizeEntity getSize() {
-        return size;
-    }
-
-    public void setSize(SizeEntity size) {
-        this.size = size;
-    }
-
-    public ColorEntity getColor() {
-        return color;
-    }
-
-    public void setColor(ColorEntity color) {
-        this.color = color;
     }
 
     public CategoryEntity getCategory() {

@@ -24,7 +24,7 @@ public interface ProductRepository extends JpaRepository <ProductEntity, Integer
 
     ProductEntity findById(int id);
 
-    ProductEntity findByColorIdAndSizeIdAndName(int colorId, int sizeId, String name);
+//    ProductEntity findByColorIdAndSizeIdAndName(int colorId, int sizeId, String name);
 
     @Query("select p " +
             "from product p " +

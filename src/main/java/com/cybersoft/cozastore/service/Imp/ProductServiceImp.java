@@ -8,9 +8,9 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 public interface ProductServiceImp {
-    List<ProductResponse> getProductByCategory(int id);
-    List<ProductResponse> getProductByUser(int id);
-    ProductResponse getProductById(int id);
-    List<ProductResponse> findAllDistinctProduct(PageRequest pageRequest);
-    List<ProductResponse> getProductByCategoryName(String name);
+//    List<ProductResponse> getProductByCategory(int id);
+//    List<ProductResponse> getProductByUser(int id);
+//    ProductResponse getProductById(int id);
+//    List<ProductResponse> findAllDistinctProduct(PageRequest pageRequest);
+//    List<ProductResponse> getProductByCategoryName(String name);
 }

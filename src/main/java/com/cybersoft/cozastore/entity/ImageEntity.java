@@ -14,8 +14,17 @@ public class ImageEntity {
     @Column(name = "detail")
     private String detail;
 
-    @OneToMany(mappedBy = "image")
-    Set<ProductImageEntity> productImages;
+    @ManyToOne
+    @JoinColumn(name = "product_skus_id")
+    private ProductSkusEntity productSkus;
+
+    public ProductSkusEntity getProductSkus() {
+        return productSkus;
+    }
+
+    public void setProductSkus(ProductSkusEntity productSkus) {
+        this.productSkus = productSkus;
+    }
 
     public int getId() {
         return id;
@@ -39,13 +48,5 @@ public class ImageEntity {
 
     public void setDetail(String detail) {
         this.detail = detail;
-    }
-
-    public Set<ProductImageEntity> getProductImages() {
-        return productImages;
-    }
-
-    public void setProductImages(Set<ProductImageEntity> productImages) {
-        this.productImages = productImages;
     }
 }
