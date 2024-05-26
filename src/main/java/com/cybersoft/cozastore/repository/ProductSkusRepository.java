@@ -12,4 +12,5 @@ public interface ProductSkusRepository extends JpaRepository<ProductSkusEntity, 
             "where p.id = ?1 " +
             "order by pk.price")
     ProductSkusEntity findByProductIdWithMinPrice(int id);
+
 }

@@ -28,9 +28,6 @@ public class ProductEntity {
     private CategoryEntity category;
 
     @OneToMany(mappedBy = "product")
-    private Set<OrderDetailEntity> orderDetails;
-
-    @OneToMany(mappedBy = "product")
     private Set<UserReviewEntity> userReviews;
 
     @OneToMany(mappedBy = "product")
@@ -66,14 +63,6 @@ public class ProductEntity {
 
     public void setProductSkus(Set<ProductSkusEntity> productSkus) {
         this.productSkus = productSkus;
-    }
-
-    public Set<OrderDetailEntity> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(Set<OrderDetailEntity> orderDetails) {
-        this.orderDetails = orderDetails;
     }
 
     public int getId() {

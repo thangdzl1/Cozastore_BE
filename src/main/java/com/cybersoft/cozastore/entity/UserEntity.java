@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.entity;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity(name = "user")
@@ -24,6 +25,17 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user")
     private Set<OrderEntity> orders;
+
+    @OneToMany(mappedBy = "user")
+    private Set<com.cybersoft.cozastore.entity.UCartEntity> uCarts = new LinkedHashSet<>();
+
+    public Set<com.cybersoft.cozastore.entity.UCartEntity> getUCarts() {
+        return uCarts;
+    }
+
+    public void setUCarts(Set<com.cybersoft.cozastore.entity.UCartEntity> uCarts) {
+        this.uCarts = uCarts;
+    }
 
     public Set<OrderEntity> getOrders() {
         return orders;

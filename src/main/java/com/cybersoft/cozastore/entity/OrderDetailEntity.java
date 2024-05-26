@@ -17,12 +17,20 @@ public class OrderDetailEntity {
     private int quantity = 0;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", insertable = false,updatable = false)
-    private ProductEntity product;
+    @JoinColumn(name = "product_skus_id", insertable = false,updatable = false)
+    private ProductSkusEntity productSkus;
 
     @ManyToOne
     @JoinColumn(name = "order_id", insertable = false,updatable = false)
     private OrderEntity order;
+
+    public ProductSkusEntity getProduct_skus() {
+        return productSkus;
+    }
+
+    public void setProduct_skus(ProductSkusEntity product_skus) {
+        this.productSkus = product_skus;
+    }
 
     public OrderDetailIds getIds() {
         return ids;
@@ -47,15 +55,6 @@ public class OrderDetailEntity {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    public ProductEntity getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductEntity product) {
-        this.product = product;
-    }
-
     public OrderEntity getOrder() {
         return order;
     }

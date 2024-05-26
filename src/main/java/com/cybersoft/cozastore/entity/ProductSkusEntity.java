@@ -1,6 +1,7 @@
 package com.cybersoft.cozastore.entity;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity(name = "product_skus")
@@ -22,6 +23,28 @@ public class ProductSkusEntity {
 
     @OneToMany
     private Set<AttributesOptionSkusEntity> productAttributes;
+
+    @OneToMany(mappedBy = "productSkus")
+    private Set<com.cybersoft.cozastore.entity.UCartItemEntity> uCartItems = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "productSkus")
+    private Set<OrderDetailEntity> orderDetails;
+
+    public Set<OrderDetailEntity> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetailEntity> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public Set<com.cybersoft.cozastore.entity.UCartItemEntity> getUCartItems() {
+        return uCartItems;
+    }
+
+    public void setUCartItems(Set<com.cybersoft.cozastore.entity.UCartItemEntity> uCartItems) {
+        this.uCartItems = uCartItems;
+    }
 
     public Set<AttributesOptionSkusEntity> getProductAttributes() {
         return productAttributes;
