@@ -20,6 +20,9 @@ public class ProductEntity {
     @Column(name = "full_description")
     private String fullDescription;
 
+    @Column(name = "image")
+    private String image;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
@@ -32,6 +35,14 @@ public class ProductEntity {
 
     @OneToMany(mappedBy = "product")
     private Set<ProductSkusEntity> productSkus;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getFullDescription() {
         return fullDescription;

@@ -25,9 +25,6 @@ public class ProductService implements ProductServiceImp {
     private ProductRepository productRepository;
 
     @Autowired
-    private ImageRepository imageRepository;
-
-    @Autowired
     private ProductSkusRepository productSkusRepository;
 
 //    @Override
@@ -147,6 +144,7 @@ public class ProductService implements ProductServiceImp {
                 productResponse.setDescription(data.getDescription());
                 productResponse.setFullDescription(data.getFullDescription());
                 productResponse.setCategory(data.getCategory().getName());
+                productResponse.setImage(data.getImage());
 
                 ProductSkusEntity productSkusEntity = productSkusRepository.findByProductIdWithMinPrice(data.getId());
                 if (productSkusEntity != null) {
@@ -158,19 +156,6 @@ public class ProductService implements ProductServiceImp {
                     productResponse.setPrice(0);
                     productResponse.setQuantity(0);
                 }
-
-                List<ImageEntity> listImage = imageRepository.findAllByProductSkusId(data.getId());
-                List<String> imageList = new ArrayList<>();
-                if (listImage != null) {
-                    for (ImageEntity imageEntity : listImage) {
-                        imageList.add(imageEntity.getSource());
-                    }
-                } else {
-                    // Handle the case when listImage is null
-                    // For example, you can add a default image source
-                    imageList.add("default_image_source");
-                }
-                productResponse.setImage(imageList);
                 productResponseList.add(productResponse);
             }
         } catch (Exception e) {

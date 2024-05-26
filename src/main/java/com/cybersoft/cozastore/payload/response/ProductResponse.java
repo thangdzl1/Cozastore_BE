@@ -6,7 +6,7 @@ public class ProductResponse {
     private int id;
     private String name;
     private double price;
-    private List<String> image;
+    private String image;
     private String category;
     private String description;
     private String fullDescription;
@@ -68,11 +68,11 @@ public class ProductResponse {
         this.price = price;
     }
 
-    public List<String> getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(List<String> image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }
